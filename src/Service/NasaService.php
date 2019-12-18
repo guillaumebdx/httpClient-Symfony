@@ -9,12 +9,12 @@ class NasaService
 {
     private $client;
     
-    private $params;
+    private $parameterBag;
     
-    public function __construct(HttpClientInterface $client, ParameterBagInterface $params)
+    public function __construct(HttpClientInterface $client, ParameterBagInterface $parameterBag)
     {
         $this->client = $client;
-        $this->params = $params;
+        $this->parameterBag = $parameterBag;
     }
     
     public function getPicture() : array
@@ -22,7 +22,7 @@ class NasaService
         $url      = 'https://api.nasa.gov/planetary/apod';
         $response = $this->client->request('GET', $url, [
             'query' => [
-                'api_key' => $this->params->get('api_key'),
+                'api_key' => $this->parameterBag->get('api_key'),
                 'date'    => '2019-01-01',
             ]
             
